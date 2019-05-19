@@ -2,13 +2,14 @@ package jdenticon
 
 import (
 	"bytes"
-	"crypto/sha1"
+	"crypto/sha1" // nolint:gosec
 	"encoding/hex"
 	"html/template"
 	"math/rand"
 	"time"
 )
 
+// nolint:gochecknoinits
 func init() {
 	rand.Seed(time.Now().Unix())
 }
@@ -21,7 +22,6 @@ type jdenticon struct {
 	config *Config
 	svg    *SVG
 	hash   string
-	baHash [20]byte
 
 	geometry Point
 	paddings Point
@@ -41,8 +41,7 @@ func NewWithConfig(identity string, c *Config) Jdenticon {
 			Width:  c.Width,
 			Height: c.Height,
 		},
-		hash:   sha1hash2string(sha1.Sum([]byte(identity))),
-		baHash: sha1.Sum([]byte(identity)),
+		hash: sha1hash2string(sha1.Sum([]byte(identity))), // nolint:gosec
 	}
 
 	j.geometry = Point{
@@ -70,7 +69,7 @@ func NewWithConfig(identity string, c *Config) Jdenticon {
 			UseOpacity: true,
 			Opacity:    opacity(c.Background),
 			Shapes: Shapes{
-				&Polygon{[]Point{Point{0, 0}, Point{w, 0}, Point{w, h}, Point{0, h}}, false},
+				&Polygon{[]Point{{0, 0}, {w, 0}, {w, h}, {0, h}}, false},
 			},
 		})
 	}
@@ -80,26 +79,26 @@ func NewWithConfig(identity string, c *Config) Jdenticon {
 	shapes[colors[1]] = Shapes{}
 	shapes[colors[2]] = Shapes{}
 	shapes[colors[0]] = append(shapes[colors[0]], j.renderShapes(shapeOuter, 2, 3, [][2]float64{
-		[2]float64{1, 0},
-		[2]float64{2, 0},
-		[2]float64{2, 3},
-		[2]float64{1, 3},
-		[2]float64{0, 1},
-		[2]float64{3, 1},
-		[2]float64{3, 2},
-		[2]float64{0, 2},
+		{1, 0},
+		{2, 0},
+		{2, 3},
+		{1, 3},
+		{0, 1},
+		{3, 1},
+		{3, 2},
+		{0, 2},
 	})...)
 	shapes[colors[1]] = append(shapes[colors[1]], j.renderShapes(shapeOuter, 4, 5, [][2]float64{
-		[2]float64{0, 0},
-		[2]float64{3, 0},
-		[2]float64{3, 3},
-		[2]float64{0, 3},
+		{0, 0},
+		{3, 0},
+		{3, 3},
+		{0, 3},
 	})...)
 	shapes[colors[2]] = append(shapes[colors[2]], j.renderShapes(shapeInner, 1, 0, [][2]float64{
-		[2]float64{1, 1},
-		[2]float64{2, 1},
-		[2]float64{2, 2},
-		[2]float64{1, 2},
+		{1, 1},
+		{2, 1},
+		{2, 2},
+		{1, 2},
 	})...)
 
 	for color := range shapes {

@@ -7,22 +7,6 @@ import (
 	"strings"
 )
 
-// See https://developer.mozilla.org/ru/docs/Web/SVG/Tutorial/Paths
-
-// Want render something like this:
-//
-// <svg height="200" preserveAspectRatio="xMidYMid meet" viewBox="0 0 200 200" width="200" xmlns="http://www.w3.org/2000/svg">
-//   <path fill="#3d73b7" d="M100 58L58 58L58 37ZM100 58L100 16L121 16ZM100 142L142 142L142 163ZM100 142L100 184L79 184ZM58 100L16 100L16 79ZM142 100L142 58L163 58ZM142 100L184 100L184 121ZM58 100L58 142L37 142Z"/>
-//   <path fill="#84a8d6" d="M58 16L58 58L16 58ZM184 58L142 58L142 16ZM142 184L142 142L184 142ZM16 142L58 142L58 184ZM73 83.5a10.5,10.5 0 1,1 21,0a10.5,10.5 0 1,1 -21,0M106 83.5a10.5,10.5 0 1,1 21,0a10.5,10.5 0 1,1 -21,0M106 116.5a10.5,10.5 0 1,1 21,0a10.5,10.5 0 1,1 -21,0M73 116.5a10.5,10.5 0 1,1 21,0a10.5,10.5 0 1,1 -21,0"/>
-// </svg>
-//
-
-// M73 83.5a10.5,10.5 0 1,1 21,0a10.5,10.5 0 1,1 -21,0
-
-// M73 83.5
-// a 10.5 10.5, 0 1 1, 21 0
-// a 10.5 10.5, 0 1 1, -21 0
-
 type SVG struct {
 	XMLName             xml.Name `xml:"svg"`
 	Width               int      `xml:"width,attr"`
@@ -221,12 +205,13 @@ func newPolygon(points []Point, cw bool) *Polygon {
 
 // -----------------------------------------------------------------------------
 
+// nolint:unparam
 func newTriangle(x, y, w, h float64, r int, cw bool) Shape {
 	points := []Point{
-		Point{x + w, y},
-		Point{x + w, y + h},
-		Point{x, y + h},
-		Point{x, y},
+		{x + w, y},
+		{x + w, y + h},
+		{x, y + h},
+		{x, y},
 	}
 	idx := r % 4
 	if len(points) == idx {
@@ -241,10 +226,10 @@ func newTriangle(x, y, w, h float64, r int, cw bool) Shape {
 
 func newRectangle(x, y, w, h float64, cw bool) Shape {
 	return newPolygon([]Point{
-		Point{x, y},
-		Point{x + w, y},
-		Point{x + w, y + h},
-		Point{x, y + h},
+		{x, y},
+		{x + w, y},
+		{x + w, y + h},
+		{x, y + h},
 	}, cw)
 }
 
@@ -252,10 +237,10 @@ func newRectangle(x, y, w, h float64, cw bool) Shape {
 
 func newRhombus(x, y, w, h float64, cw bool) Shape {
 	return newPolygon([]Point{
-		Point{x + w/2, y},
-		Point{x + w, y + h/2},
-		Point{x + w/2, y + h},
-		Point{x, y + h/2},
+		{x + w/2, y},
+		{x + w, y + h/2},
+		{x + w/2, y + h},
+		{x, y + h/2},
 	}, cw)
 }
 

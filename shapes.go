@@ -6,15 +6,16 @@ import (
 
 type shapesGetter func(cell float64, index int) Shapes
 
+// nolint:gochecknoglobals
 var shapeInner = []shapesGetter{
 	func(cell float64, index int) Shapes {
-		k := float64(cell) * 0.42
+		k := cell * 0.42
 		return Shapes{newPolygon([]Point{
-			Point{0, 0},
-			Point{cell, 0},
-			Point{cell, cell - k*2},
-			Point{cell - k, cell},
-			Point{0, cell},
+			{0, 0},
+			{cell, 0},
+			{cell, cell - k*2},
+			{cell - k, cell},
+			{0, cell},
 		}, false)}
 	},
 	func(cell float64, index int) Shapes {
@@ -61,20 +62,20 @@ var shapeInner = []shapesGetter{
 		return Shapes{
 			newRectangle(0, 0, cell, cell, true),
 			newPolygon([]Point{
-				Point{outer, outer},
-				Point{cell - inner, outer},
-				Point{outer + (cell-outer-inner)/2, cell - inner},
+				{outer, outer},
+				{cell - inner, outer},
+				{outer + (cell-outer-inner)/2, cell - inner},
 			}, true),
 		}
 	},
 	func(cell float64, index int) Shapes {
 		return Shapes{newPolygon([]Point{
-			Point{0, 0},
-			Point{cell, 0},
-			Point{cell, cell * 0.7},
-			Point{cell * 0.4, cell * 0.4},
-			Point{cell * 0.7, cell},
-			Point{0, cell},
+			{0, 0},
+			{cell, 0},
+			{cell, cell * 0.7},
+			{cell * 0.4, cell * 0.4},
+			{cell * 0.7, cell},
+			{0, cell},
 		}, false)}
 	},
 	func(cell float64, index int) Shapes {
@@ -137,6 +138,7 @@ var shapeInner = []shapesGetter{
 	},
 }
 
+// nolint:gochecknoglobals
 var shapeOuter = []shapesGetter{
 	func(cell float64, index int) Shapes {
 		return Shapes{newTriangle(0, 0, cell, cell, 0, false)}
@@ -169,8 +171,8 @@ func (j *jdenticon) renderShapes(getters []shapesGetter, index int, rotationInde
 		shapes := getter(cell, index)
 		for _, shape := range shapes {
 			bottomleft := &Point{
-				X: j.zero.X + float64(positions[i][0])*cell,
-				Y: j.zero.Y + float64(positions[i][1])*cell,
+				X: j.zero.X + positions[i][0]*cell,
+				Y: j.zero.Y + positions[i][1]*cell,
 			}
 			center := &Point{
 				X: bottomleft.X + cell/2,

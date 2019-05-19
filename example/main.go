@@ -75,11 +75,11 @@ func icon(c echo.Context) error {
 			}
 		case "width":
 			if val, err := strconv.Atoi(c.QueryParam(name)); err == nil {
-				width = int(val)
+				width = val
 			}
 		case "height":
 			if val, err := strconv.Atoi(c.QueryParam(name)); err == nil {
-				height = int(val)
+				height = val
 			}
 		case "padding":
 			if val, err := strconv.ParseFloat(c.QueryParam(name), 8); err == nil {

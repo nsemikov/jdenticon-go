@@ -6,7 +6,8 @@ import (
 	"strconv"
 )
 
-var DefaultConfig = &Config{
+// DefaultConfig var
+var DefaultConfig = &Config{ // nolint:gochecknoglobals
 	Hues: -1,
 	Colored: Color{
 		Saturation: 0.5,
@@ -154,7 +155,7 @@ func ConfigFromString(h string) (c *Config, err error) {
 		Height:     200,
 		Padding:    0.08,
 	}
-	return
+	return c, nil
 }
 
 func ConfigFromBytes(h []byte) (c *Config, err error) {
