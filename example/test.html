@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--[if lt IE 9]><script src="//cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script><![endif]-->
+<link href="//cdn.jsdelivr.net/fontawesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>jdenticon.toSvg() - Jdenticon for JavaScript</title>
+<meta name="description" content="Documentation of API methods and properties for Jdenticon for JavaScript.">
+<script language="JavaScript" src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/jdenticon@2.1.1" async></script> -->
+<script src="https://cdn.jsdelivr.net/npm/jdenticon@2.1.1/dist/jdenticon.js" async></script>
+
+<script language="JavaScript" >
+$(document).ready(function() {
+  ['nsemikov','atisjenkov','ivasich','ngagin','emironov','aastakhov',].forEach(function(item) {
+    $('#jdenticon-go').append('<img width="100" height="100" src="/icon/'+item+window.location.search+'"/>')
+    $('#jdenticon-js').append('<svg width="100" height="100" data-jdenticon-value="'+item+window.location.search+'"></svg>')
+  })
+  let item = encodeURIComponent($('input').val())
+  $('#jdenticon-realtime-go').html('<img width="100" height="100" src="/icon/'+item+window.location.search+'"/>')
+  $('#jdenticon-realtime-js').html('<svg width="100" height="100" data-jdenticon-value="'+item+window.location.search+'"></svg>')
+  $('input').on('input',function(){
+    let item = encodeURIComponent($('input').val())
+    $('#jdenticon-realtime-go').html('<img width="100" height="100" src="/icon/'+item+window.location.search+'"/>')
+    $('#jdenticon-realtime-js').html('<svg width="100" height="100" data-jdenticon-value="'+item+window.location.search+'"></svg>')
+    jdenticon()
+  })
+})
+</script>
+</head>
+
+<body>
+  <div id="jdenticon-go"></div>
+  <div id="jdenticon-js"></div>
+  <hr>
+  <span id="jdenticon-realtime-go"></span>
+  <span id="jdenticon-realtime-js"></span>
+  <br>
+  <input type="text"/>
+</body>
+</html>
