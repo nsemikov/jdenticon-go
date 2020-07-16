@@ -10,7 +10,4 @@ coverage.out
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
 
-# vendor
-vendor/github.com/stdatiks/go-sedoc
-
 dst/

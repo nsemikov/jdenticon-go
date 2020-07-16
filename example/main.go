@@ -12,7 +12,7 @@ import (
 	"github.com/labstack/echo/middleware"
 	colorful "github.com/lucasb-eyer/go-colorful"
 
-	jdenticon "github.com/stdatiks/jdenticon-go"
+	jdenticon "github.com/nsemikov/jdenticon-go"
 )
 
 func main() {
